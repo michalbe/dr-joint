@@ -4,7 +4,7 @@ var drjoint = (function(){
   $.get('sql/opencart.json', function (data) {
     // render table names
     for (var table in data) {
-      $('body').append(createTable(table));
+      $('body').append(createTable(table, data[table]));
     }
   });
 
@@ -14,8 +14,16 @@ var drjoint = (function(){
   // });
 })();
 
-var createTable = function(name, content){
+var createTable = function(name, fields){
   var el = $('<div></div>');
+  var fieldElement;
   el.text(name);
+
+  $.each(fields, function(index, field){
+    fieldElement = $('<div></div>');
+    fieldElement.css({'backgroundColor' : '#F0F'});
+    fieldElement.text(field);
+    fieldElement.appendTo(el);
+  });
   return el;
 };
