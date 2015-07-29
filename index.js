@@ -1,8 +1,8 @@
 var drjoint = (function(){
 'use strict';
 
-  nanoajax.ajax('sql/opencart.json', function (code, responseText) {
-    var data = JSON.parse(responseText);
+  $.get('sql/opencart.json', function (responseText) {
+    var data = responseText;
 
     // render table names
     for (var table in data) {
@@ -15,3 +15,7 @@ var drjoint = (function(){
   //   document.body.innerHTML += '<br/>prestashop tables: ' + Object.keys(data).length;
   // });
 })();
+
+var createTable = function(name, content){
+  var el = document.createElement();
+};
