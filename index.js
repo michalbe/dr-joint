@@ -1,16 +1,16 @@
 var drjoint = (function(){
 'use strict';
-  $.get('sql/opencart.json', function (data) {
-    var sourceDB = $('<div></div>');
-    sourceDB.addClass('db-container');
+
+  var createDBSchema = function(data){
+    var dbSchema = $('<div></div>');
+    dbSchema.addClass('db-container');
     var fieldElement;
-    sourceDB.appendTo(document.body);
 
     // render table names
     for (var table in data) {
-      sourceDB.append('<h3>' + table + '</h3>');
+      dbSchema.append('<h3>' + table + '</h3>');
       fieldElement = $('<div></div>');
-      fieldElement.appendTo(sourceDB);
+      fieldElement.appendTo(dbSchema);
       $.each(data[table], function(index, field){
         fieldElement.append(
           $('<div></div>').text(field).attr({
@@ -21,12 +21,30 @@ var drjoint = (function(){
       });
     }
 
-    sourceDB.accordion({
+    dbSchema.accordion({
       active: false,
       collapsible: true,
       heightStyle: 'content'
     });
+    console.log(dbSchema);
+    return dbSchema;
+  };
 
+  $.get('sql/opencart.json', function (data) {
+    var sourceDB = createDBSchema(data);
+    sourceDB.appendTo(document.body);
+  });
+
+  $.get('sql/prestashop.json', function (data) {
+    var destinationDB = createDBSchema(data);
+    destinationDB.css({
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      display: 'block',
+      textAlign: 'right'
+    });
+    destinationDB.appendTo(document.body);
   });
 
   // nanoajax.ajax('sql/prestashop.json', function (code, responseText) {
