@@ -12,7 +12,12 @@ var drjoint = (function(){
       fieldElement = $('<div></div>');
       fieldElement.appendTo(sourceDB);
       $.each(data[table], function(index, field){
-        fieldElement.append($('<li></li>').text(field));
+        fieldElement.append(
+          $('<div></div>').text(field).attr({
+            'data-table': table,
+            'data-field': field
+          }).addClass('db-field')
+          );
       });
     }
 
