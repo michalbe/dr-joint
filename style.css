@@ -12,9 +12,13 @@ body, html {
   border-radius: 5px;
   padding: 2px;
   padding-left: 10px;
+  cursor: pointer;
 }
 
 .db-field:hover {
   background: #CCC;
-  cursor: pointer;
+}
+
+.db-field.selected {
+  background: #AAA;
 }
