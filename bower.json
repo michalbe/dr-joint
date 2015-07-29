@@ -15,6 +15,6 @@
     "tests"
   ],
   "dependencies": {
-    "nanoajax": "~0.3.1"
+    "jquery": "~2.1.4"
   }
 }
