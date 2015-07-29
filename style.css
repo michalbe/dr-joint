@@ -1,3 +1,15 @@
 .db-container {
   width: 33%;
 }
+
+.db-field {
+  transition: background 0.2s;
+  border-radius: 5px;
+  padding: 2px;
+  padding-left: 10px;
+}
+
+.db-field:hover {
+  background: #CCC;
+  cursor: pointer;
+}
