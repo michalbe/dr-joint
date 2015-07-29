@@ -1,12 +1,10 @@
 var drjoint = (function(){
 'use strict';
 
-  $.get('sql/opencart.json', function (responseText) {
-    var data = responseText;
-
+  $.get('sql/opencart.json', function (data) {
     // render table names
     for (var table in data) {
-      document.body.innerHTML += table +'<br/>';
+      $('body').append(createTable(table));
     }
   });
 
@@ -17,5 +15,7 @@ var drjoint = (function(){
 })();
 
 var createTable = function(name, content){
-  var el = document.createElement();
+  var el = $('<div></div>');
+  el.text(name);
+  return el;
 };
