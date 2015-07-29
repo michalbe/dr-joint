@@ -63,11 +63,14 @@ var drjoint = (function(){
       float: 'right'
     });
     destinationDB.appendTo($('#content'));
+    $('#destination-search').on('keyup', searchAction(destinationDB));
+
   });
 
   $.get('sql/opencart.json', function (data) {
     sourceDB = createDBSchema(data);
     sourceDB.appendTo($('#content'));
+    $('#source-search').on('keyup', searchAction(sourceDB));
   });
 
   // nanoajax.ajax('sql/prestashop.json', function (code, responseText) {
@@ -95,16 +98,16 @@ var drjoint = (function(){
   };
 
   // search elements
-  var searchbar = $('#source-search');
-  searchbar.on('keyup', function(){
-    var searchterm = $(this).val();
-    sourceDB.find('.hidden').removeClass('hidden');
-    var tables = sourceDB.children();
-    $.each(tables, function(ind, el){
-      if ($(el).text().indexOf(searchterm) === -1) {
-        console.log($(el));
-        $(el).addClass('hidden');
-      }
-    });
-  });
+  var searchAction = function(db) {
+    return function() {
+      var searchterm = $(this).val();
+      db.find('.hidden').removeClass('hidden');
+      var tables = db.children();
+      $.each(tables, function(ind, el){
+        if ($(el).text().indexOf(searchterm) === -1) {
+          $(el).addClass('hidden');
+        }
+      });
+    };
+  };
 })();
