@@ -26,7 +26,13 @@ var drjoint = (function(){
         });
 
         fieldLabel.append($('<div></div>').addClass('field-label').text(field));
-        fieldLabel.append($('<div></div>').addClass('remove-button'));
+        fieldLabel.append($('<div></div>').addClass('remove-button').on('click', function(){
+          var that = $(this);
+          var field = that.closest('.db-field');
+          that.removeClass('added');
+          console.log('[data-field="' + field.attr('data-field') + '"][data-table="' + field.attr('data-table') + '"]');
+          $('[data-field="' + field.attr('data-field') + '"]').removeClass('added');
+        }));
 
         fieldElement.append(
           fieldLabel
