@@ -12,20 +12,25 @@ var drjoint = (function(){
       fieldElement = $('<div></div>');
       fieldElement.appendTo(dbSchema);
       $.each(data[table], function(index, field){
+        var fieldLabel = $('<div></div>').attr({
+          'data-table': table,
+          'data-field': field
+        }).addClass('db-field').on('click', function(){
+          var that = $(this);
+          if (that.hasClass('added')) {
+            return;
+          }
+          that.closest('.db-container').find('.selected').removeClass('selected');
+          that.toggleClass('selected');
+          checkSelected();
+        });
+
+        fieldLabel.append($('<div></div>').addClass('field-label').text(field));
+        fieldLabel.append($('<div></div>').addClass('remove-button'));
+
         fieldElement.append(
-          $('<div></div>').text(field).attr({
-            'data-table': table,
-            'data-field': field
-          }).addClass('db-field').on('click', function(){
-            var that = $(this);
-            if (that.hasClass('added')) {
-              return;
-            }
-            that.closest('.db-container').find('.selected').removeClass('selected');
-            that.toggleClass('selected');
-            checkSelected();
-          })
-          );
+          fieldLabel
+        );
       });
     }
 
@@ -67,14 +72,14 @@ var drjoint = (function(){
 
       var first = $(selected[0]);
       var second = $(selected[1]);
-      var firstText = first.text();
-      var secondText = second.text();
+      var firstText = first.find('.field-label').text();
+      var secondText = second.find('.field-label').text();
       var firstLinkedTo = second.attr('data-table')+'.' + second.attr('data-field');
       var secondLinkedTo = first.attr('data-table')+'.' + first.attr('data-field');
-      first.html(firstText + ' <b>linked to</b> ' + firstLinkedTo);
+      first.find('.field-label').html(firstText + ' <b>linked to</b> ' + firstLinkedTo);
       first.attr('data-linked-to', firstLinkedTo);
       second.attr('data-linked-to', secondLinkedTo);
-      second.html(secondText + ' <b>linked to</b> ' + secondLinkedTo);
+      second.find('.field-label').html(secondText + ' <b>linked to</b> ' + secondLinkedTo);
       selected.removeClass('selected');
     }
   };
