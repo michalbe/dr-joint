@@ -16,7 +16,9 @@ var drjoint = (function(){
           $('<div></div>').text(field).attr({
             'data-table': table,
             'data-field': field
-          }).addClass('db-field')
+          }).addClass('db-field').on('click', function(){
+            $(this).toggleClass('selected');
+          })
           );
       });
     }
