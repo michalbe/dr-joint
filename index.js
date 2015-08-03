@@ -72,6 +72,8 @@ var drjoint = (function(){
       var firstLinkedTo = second.attr('data-table')+'.' + second.attr('data-field');
       var secondLinkedTo = first.attr('data-table')+'.' + first.attr('data-field');
       first.html(firstText + ' <b>linked to</b> ' + firstLinkedTo);
+      first.attr('data-linked-to', firstLinkedTo);
+      second.attr('data-linked-to', secondLinkedTo);
       second.html(secondText + ' <b>linked to</b> ' + secondLinkedTo);
       selected.removeClass('selected');
     }
