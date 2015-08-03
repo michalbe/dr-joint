@@ -51,6 +51,7 @@ body, html {
   line-height: 10px;
   border-radius: 15px;
   cursor:pointer;
+  float: right;
 }
 
 .remove-button:hover {

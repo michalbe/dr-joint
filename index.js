@@ -25,7 +25,6 @@ var drjoint = (function(){
           checkSelected();
         });
 
-        fieldLabel.append($('<div></div>').addClass('field-label').text(field));
         fieldLabel.append($('<div></div>').addClass('remove-button').on('click', function(){
           var that = $(this);
           var field = that.closest('.db-field');
@@ -37,6 +36,7 @@ var drjoint = (function(){
           linkedField.find('.field-label').text(linkedField.attr('data-field'));
 
         }));
+        fieldLabel.append($('<div></div>').addClass('field-label').text(field));
 
         fieldElement.append(
           fieldLabel
@@ -56,8 +56,7 @@ var drjoint = (function(){
   $.get('sql/prestashop.json', function (data) {
     var destinationDB = createDBSchema(data);
     destinationDB.css({
-      float: 'right',
-      textAlign: 'right'
+      float: 'right'
     });
     destinationDB.appendTo($('#content'));
   });
