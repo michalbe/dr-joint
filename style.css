@@ -25,6 +25,7 @@ body, html {
 }
 
 .db-field.added {
-  opacity: 0.3;
+  background: #AAA;
+  opacity: 0.6;
   cursor: default;
 }
