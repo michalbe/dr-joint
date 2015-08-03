@@ -4,7 +4,8 @@ body, html {
 }
 
 .db-container {
-  width: 33%;
+  width: 40%;
+  overflow: hidden;
 }
 
 .db-field {
