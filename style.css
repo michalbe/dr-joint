@@ -3,6 +3,10 @@ body, html {
   padding: 0;
 }
 
+#content {
+  position: relative;
+}
+
 .db-container {
   width: 40%;
   overflow: hidden;
