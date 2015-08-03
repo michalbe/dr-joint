@@ -49,7 +49,6 @@ var drjoint = (function(){
       collapsible: true,
       heightStyle: 'content'
     });
-    console.log(dbSchema);
     return dbSchema;
   };
 
@@ -82,10 +81,10 @@ var drjoint = (function(){
       var secondText = second.find('.field-label').text();
       var firstLinkedTo = second.attr('data-table')+'.' + second.attr('data-field');
       var secondLinkedTo = first.attr('data-table')+'.' + first.attr('data-field');
-      first.find('.field-label').html(firstText + ' <b>linked to</b> ' + firstLinkedTo);
+      first.find('.field-label').html(firstText + ' <span class="small"><b>linked to</b> ' + firstLinkedTo + '</span>');
       first.attr('data-linked-to', firstLinkedTo);
       second.attr('data-linked-to', secondLinkedTo);
-      second.find('.field-label').html(secondText + ' <b>linked to</b> ' + secondLinkedTo);
+      second.find('.field-label').html(secondText + ' <span class="small"><b>linked to</b> ' + secondLinkedTo + '</span>');
       selected.removeClass('selected');
     }
   };
