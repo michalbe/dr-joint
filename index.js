@@ -53,21 +53,18 @@ var drjoint = (function(){
     return dbSchema;
   };
 
-  $.get('sql/opencart.json', function (data) {
-    var sourceDB = createDBSchema(data);
-    sourceDB.appendTo(document.body);
-  });
-
   $.get('sql/prestashop.json', function (data) {
     var destinationDB = createDBSchema(data);
     destinationDB.css({
-      position: 'absolute',
-      top: 0,
-      right: 0,
-      display: 'block',
+      float: 'right',
       textAlign: 'right'
     });
-    destinationDB.appendTo(document.body);
+    destinationDB.appendTo($('#content'));
+  });
+
+  $.get('sql/opencart.json', function (data) {
+    var sourceDB = createDBSchema(data);
+    sourceDB.appendTo($('#content'));
   });
 
   // nanoajax.ajax('sql/prestashop.json', function (code, responseText) {
