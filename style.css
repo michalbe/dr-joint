@@ -70,3 +70,7 @@ input[type="text"] {
 .db-field:hover .small {
   font-size: 16px;
 }
+
+.hidden {
+  display: none !important;
+}

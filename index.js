@@ -1,7 +1,11 @@
 var drjoint = (function(){
 'use strict';
 
+  var destinationDB;
+  var sourceDB;
+
   var createDBSchema = function(data){
+
     var dbSchema = $('<div></div>');
     dbSchema.addClass('db-container');
     var fieldElement;
@@ -9,6 +13,7 @@ var drjoint = (function(){
     // render table names
     for (var table in data) {
       dbSchema.append('<h3>' + table + '</h3>');
+      dbSchema.attr('data-table-acc', table);
       fieldElement = $('<div></div>');
       fieldElement.appendTo(dbSchema);
       $.each(data[table], function(index, field){
@@ -53,7 +58,7 @@ var drjoint = (function(){
   };
 
   $.get('sql/prestashop.json', function (data) {
-    var destinationDB = createDBSchema(data);
+    destinationDB = createDBSchema(data);
     destinationDB.css({
       float: 'right'
     });
@@ -61,7 +66,7 @@ var drjoint = (function(){
   });
 
   $.get('sql/opencart.json', function (data) {
-    var sourceDB = createDBSchema(data);
+    sourceDB = createDBSchema(data);
     sourceDB.appendTo($('#content'));
   });
 
@@ -88,4 +93,18 @@ var drjoint = (function(){
       selected.removeClass('selected');
     }
   };
+
+  // search elements
+  var searchbar = $('#source-search');
+  searchbar.on('keyup', function(){
+    var searchterm = $(this).val();
+    sourceDB.find('.hidden').removeClass('hidden');
+    var tables = sourceDB.children();
+    $.each(tables, function(ind, el){
+      if ($(el).text().indexOf(searchterm) === -1) {
+        console.log($(el));
+        $(el).addClass('hidden');
+      }
+    });
+  });
 })();
