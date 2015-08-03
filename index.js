@@ -69,9 +69,10 @@ var drjoint = (function(){
       var second = $(selected[1]);
       var firstText = first.text();
       var secondText = second.text();
-
-      first.html(firstText + ' <b>linked to</b> ' + second.attr('data-table')+'.' + second.attr('data-field'));
-      second.html(secondText + ' <b>linked to</b> ' + first.attr('data-table')+'.' + first.attr('data-field'));
+      var firstLinkedTo = second.attr('data-table')+'.' + second.attr('data-field');
+      var secondLinkedTo = first.attr('data-table')+'.' + first.attr('data-field');
+      first.html(firstText + ' <b>linked to</b> ' + firstLinkedTo);
+      second.html(secondText + ' <b>linked to</b> ' + secondLinkedTo);
       selected.removeClass('selected');
     }
   };
