@@ -1,0 +1,20 @@
+{
+  "name": "dr-joint",
+  "main": "index.js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/michalbe/dr-joint",
+  "authors": [
+    "Michał Budzyński <michal@virtualdesign.pl>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4"
+  }
+}
