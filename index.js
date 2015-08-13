@@ -4,6 +4,10 @@ var drjoint = (function(){
   var destinationDB;
   var sourceDB;
 
+  var store = function(what){
+    window.localStorage.set('drjoint', JSON.stringify(generate()));
+  };
+
   var createDBSchema = function(data){
 
     var dbSchema = $('<div></div>');
@@ -28,6 +32,7 @@ var drjoint = (function(){
           that.closest('.db-container').find('.selected').removeClass('selected');
           that.toggleClass('selected');
           checkSelected();
+          store();
         });
 
         fieldLabel.append($('<div></div>').addClass('remove-button').on('click', function(){
@@ -39,8 +44,9 @@ var drjoint = (function(){
           var linkedField = $('[data-linked-to="' + field.attr('data-table') + '.' + field.attr('data-field') + '"]');
           linkedField.removeClass('added', 'selected');
           linkedField.find('.field-label').text(linkedField.attr('data-field'));
-
+          store();
         }));
+
         fieldLabel.append($('<div></div>').addClass('field-label').text(field));
 
         fieldElement.append(
