@@ -8,6 +8,15 @@ var drjoint = (function(){
     window.localStorage.setItem('drjoint', JSON.stringify(generate()));
   };
 
+  var isContentForLoading = function(){
+    var content = window.localStorage.getItem('drjoint');
+    if (content && content.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   var createDBSchema = function(data){
 
     var dbSchema = $('<div></div>');
