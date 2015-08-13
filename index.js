@@ -5,7 +5,7 @@ var drjoint = (function(){
   var sourceDB;
 
   var store = function(what){
-    window.localStorage.set('drjoint', JSON.stringify(generate()));
+    window.localStorage.setItem('drjoint', JSON.stringify(generate()));
   };
 
   var createDBSchema = function(data){
