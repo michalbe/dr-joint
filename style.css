@@ -3,6 +3,10 @@ body, html {
   padding: 0;
 }
 
+#content {
+  position: relative;
+}
+
 .db-container {
   width: 40%;
   overflow: hidden;
@@ -30,7 +34,7 @@ body, html {
   cursor: default;
 }
 
-.db-field.added .remove-button {
+.db-field.added:hover .remove-button {
   display: inline-block;
 }
 
@@ -47,8 +51,22 @@ body, html {
   line-height: 10px;
   border-radius: 15px;
   cursor:pointer;
+  float: right;
 }
 
 .remove-button:hover {
   background-color: rgba(255, 0, 0, 1);
+}
+
+input[type="text"] {
+  width: 38%;
+}
+
+.small {
+  font-size: 10px;
+  transition: font-size 0.2s;
+}
+
+.db-field:hover .small {
+  font-size: 16px;
 }

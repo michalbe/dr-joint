@@ -25,14 +25,18 @@ var drjoint = (function(){
           checkSelected();
         });
 
-        fieldLabel.append($('<div></div>').addClass('field-label').text(field));
         fieldLabel.append($('<div></div>').addClass('remove-button').on('click', function(){
           var that = $(this);
           var field = that.closest('.db-field');
-          that.removeClass('added');
-          console.log('[data-field="' + field.attr('data-field') + '"][data-table="' + field.attr('data-table') + '"]');
-          $('[data-field="' + field.attr('data-field') + '"]').removeClass('added');
+
+          field.removeClass('added', 'selected');
+          field.find('.field-label').text(field.attr('data-field'));
+          var linkedField = $('[data-linked-to="' + field.attr('data-table') + '.' + field.attr('data-field') + '"]');
+          linkedField.removeClass('added', 'selected');
+          linkedField.find('.field-label').text(linkedField.attr('data-field'));
+
         }));
+        fieldLabel.append($('<div></div>').addClass('field-label').text(field));
 
         fieldElement.append(
           fieldLabel
@@ -45,25 +49,20 @@ var drjoint = (function(){
       collapsible: true,
       heightStyle: 'content'
     });
-    console.log(dbSchema);
     return dbSchema;
   };
-
-  $.get('sql/opencart.json', function (data) {
-    var sourceDB = createDBSchema(data);
-    sourceDB.appendTo(document.body);
-  });
 
   $.get('sql/prestashop.json', function (data) {
     var destinationDB = createDBSchema(data);
     destinationDB.css({
-      position: 'absolute',
-      top: 0,
-      right: 0,
-      display: 'block',
-      textAlign: 'right'
+      float: 'right'
     });
-    destinationDB.appendTo(document.body);
+    destinationDB.appendTo($('#content'));
+  });
+
+  $.get('sql/opencart.json', function (data) {
+    var sourceDB = createDBSchema(data);
+    sourceDB.appendTo($('#content'));
   });
 
   // nanoajax.ajax('sql/prestashop.json', function (code, responseText) {
@@ -82,10 +81,10 @@ var drjoint = (function(){
       var secondText = second.find('.field-label').text();
       var firstLinkedTo = second.attr('data-table')+'.' + second.attr('data-field');
       var secondLinkedTo = first.attr('data-table')+'.' + first.attr('data-field');
-      first.find('.field-label').html(firstText + ' <b>linked to</b> ' + firstLinkedTo);
+      first.find('.field-label').html(firstText + ' <span class="small"><b>linked to</b> ' + firstLinkedTo + '</span>');
       first.attr('data-linked-to', firstLinkedTo);
       second.attr('data-linked-to', secondLinkedTo);
-      second.find('.field-label').html(secondText + ' <b>linked to</b> ' + secondLinkedTo);
+      second.find('.field-label').html(secondText + ' <span class="small"><b>linked to</b> ' + secondLinkedTo + '</span>');
       selected.removeClass('selected');
     }
   };
