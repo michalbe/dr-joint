@@ -16,7 +16,15 @@ var drjoint = (function(){
           $('<div></div>').text(field).attr({
             'data-table': table,
             'data-field': field
-          }).addClass('db-field')
+          }).addClass('db-field').on('click', function(){
+            var that = $(this);
+            if (that.hasClass('added')) {
+              return;
+            }
+            that.closest('.db-container').find('.selected').removeClass('selected');
+            that.toggleClass('selected');
+            checkSelected();
+          })
           );
       });
     }
@@ -51,4 +59,20 @@ var drjoint = (function(){
   //   var data = JSON.parse(responseText);
   //   document.body.innerHTML += '<br/>prestashop tables: ' + Object.keys(data).length;
   // });
+
+  var checkSelected = function(){
+    var selected = $('.selected');
+    if (selected.length === 2) {
+      selected.addClass('added');
+
+      var first = $(selected[0]);
+      var second = $(selected[1]);
+      var firstText = first.text();
+      var secondText = second.text();
+
+      first.html(firstText + ' <b>linked to</b> ' + second.attr('data-table')+'.' + second.attr('data-field'));
+      second.html(secondText + ' <b>linked to</b> ' + first.attr('data-table')+'.' + first.attr('data-field'));
+      selected.removeClass('selected');
+    }
+  };
 })();

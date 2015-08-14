@@ -4,11 +4,12 @@ body, html {
 }
 
 .db-container {
-  width: 33%;
+  width: 40%;
+  overflow: hidden;
 }
 
 .db-field {
-  transition: background 0.2s;
+  transition: background 0.2s, opacity 0.2;
   border-radius: 5px;
   padding: 2px;
   padding-left: 10px;
@@ -21,4 +22,10 @@ body, html {
 
 .db-field.selected {
   background: #AAA;
+}
+
+.db-field.added {
+  background: #AAA;
+  opacity: 0.6;
+  cursor: default;
 }
