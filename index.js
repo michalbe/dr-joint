@@ -73,11 +73,6 @@ var drjoint = (function(){
     $('#source-search').on('keyup', searchAction(sourceDB));
   });
 
-  // nanoajax.ajax('sql/prestashop.json', function (code, responseText) {
-  //   var data = JSON.parse(responseText);
-  //   document.body.innerHTML += '<br/>prestashop tables: ' + Object.keys(data).length;
-  // });
-
   var checkSelected = function(){
     var selected = $('.selected');
     if (selected.length === 2) {
@@ -110,4 +105,28 @@ var drjoint = (function(){
       });
     };
   };
+
+  var generate = function(){
+    var output = {};
+    var nodes = sourceDB.find('.added');
+    $.each(nodes, function(index, node){
+      node = $(node);
+      output['`' + node.attr('data-table')+'`.`' + node.attr('data-field') + '`'] = node.attr('data-linked-to');
+    });
+
+    return output;
+  };
+
+  $('#generate-button').on('click', function(){
+    var output = generate();
+      var element = $('<a></a>')
+        .attr('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(output)))
+        .attr('download', 'output.txt')
+        .css('display', 'none')
+        .appendTo(document.body);
+
+        console.log(element);
+      element[0].click();
+      //element.remove();
+  });
 })();
