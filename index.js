@@ -121,7 +121,7 @@ var drjoint = (function(){
     var output = generate();
       var element = $('<a></a>')
         .attr('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(output)))
-        .attr('download', 'output.txt')
+        .attr('download', 'output.json')
         .css('display', 'none')
         .appendTo(document.body);
 
