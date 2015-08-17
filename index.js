@@ -1,7 +1,11 @@
 var drjoint = (function(){
 'use strict';
 
+  var destinationDB;
+  var sourceDB;
+
   var createDBSchema = function(data){
+
     var dbSchema = $('<div></div>');
     dbSchema.addClass('db-container');
     var fieldElement;
@@ -9,6 +13,7 @@ var drjoint = (function(){
     // render table names
     for (var table in data) {
       dbSchema.append('<h3>' + table + '</h3>');
+      dbSchema.attr('data-table-acc', table);
       fieldElement = $('<div></div>');
       fieldElement.appendTo(dbSchema);
       $.each(data[table], function(index, field){
@@ -53,22 +58,20 @@ var drjoint = (function(){
   };
 
   $.get('sql/prestashop.json', function (data) {
-    var destinationDB = createDBSchema(data);
+    destinationDB = createDBSchema(data);
     destinationDB.css({
       float: 'right'
     });
     destinationDB.appendTo($('#content'));
+    $('#destination-search').on('keyup', searchAction(destinationDB));
+
   });
 
   $.get('sql/opencart.json', function (data) {
-    var sourceDB = createDBSchema(data);
+    sourceDB = createDBSchema(data);
     sourceDB.appendTo($('#content'));
+    $('#source-search').on('keyup', searchAction(sourceDB));
   });
-
-  // nanoajax.ajax('sql/prestashop.json', function (code, responseText) {
-  //   var data = JSON.parse(responseText);
-  //   document.body.innerHTML += '<br/>prestashop tables: ' + Object.keys(data).length;
-  // });
 
   var checkSelected = function(){
     var selected = $('.selected');
@@ -88,4 +91,42 @@ var drjoint = (function(){
       selected.removeClass('selected');
     }
   };
+
+  // search elements
+  var searchAction = function(db) {
+    return function() {
+      var searchterm = $(this).val();
+      db.find('.hidden').removeClass('hidden');
+      var tables = db.children();
+      $.each(tables, function(ind, el){
+        if ($(el).text().indexOf(searchterm) === -1) {
+          $(el).addClass('hidden');
+        }
+      });
+    };
+  };
+
+  var generate = function(){
+    var output = {};
+    var nodes = sourceDB.find('.added');
+    $.each(nodes, function(index, node){
+      node = $(node);
+      output['`' + node.attr('data-table')+'`.`' + node.attr('data-field') + '`'] = node.attr('data-linked-to');
+    });
+
+    return output;
+  };
+
+  $('#generate-button').on('click', function(){
+    var output = generate();
+      var element = $('<a></a>')
+        .attr('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(output)))
+        .attr('download', 'output.json')
+        .css('display', 'none')
+        .appendTo(document.body);
+
+        console.log(element);
+      element[0].click();
+      //element.remove();
+  });
 })();
