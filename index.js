@@ -17,8 +17,9 @@ var drjoint = (function(){
     }
   };
 
-  var load = function(){
-    var content = window.localStorage.getItem('drjoint');
+  var load = function(content){
+    content = content || window.localStorage.getItem('drjoint');
+
     if (!content) {
       return;
     }
@@ -54,6 +55,7 @@ var drjoint = (function(){
     modal: true,
     buttons: {
       "Load": function() {
+        load($("#area").val());
         $( this ).dialog( "close" );
       },
       Cancel: function() {
