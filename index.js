@@ -17,6 +17,20 @@ var drjoint = (function(){
     }
   };
 
+  $( "#dialog-confirm" ).dialog({
+    resizable: false,
+    //height:140,
+    modal: true,
+    buttons: {
+      "Load'em ALL!": function() {
+        $( this ).dialog( "close" );
+      },
+      Cancel: function() {
+        $( this ).dialog( "close" );
+      }
+    }
+  });
+
   var createDBSchema = function(data){
 
     var dbSchema = $('<div></div>');
