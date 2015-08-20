@@ -19,7 +19,7 @@ var drjoint = (function(){
 
   $( "#dialog-confirm" ).dialog({
     resizable: false,
-    //height:140,
+    autoOpen: false,
     modal: true,
     buttons: {
       "Load'em ALL!": function() {
