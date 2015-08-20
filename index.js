@@ -23,19 +23,23 @@ var drjoint = (function(){
       return;
     }
 
-    content = JSON.parse(content);
+    content = JSON.parse(content.replace(/`/g, ''));
     for (var i in content) {
-      console.log(i, content[i]);
+      var sourceField = i.split('.');
+      var destinationField = content[i].split('.');
+
+      $('[data-table="' + sourceField[0] + '"][data-field="' + sourceField[1] + '"]').click();
+      $('[data-table="' + destinationField[0] + '"][data-field="' + destinationField[1] + '"]').click();
     }
   };
 
-  load();
   var loadDialog = $( "#dialog-confirm" ).dialog({
     resizable: false,
     autoOpen: false,
     modal: true,
     buttons: {
       "Load'em ALL!": function() {
+        load();
         $( this ).dialog( "close" );
       },
       Cancel: function() {
