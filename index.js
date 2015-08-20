@@ -48,6 +48,24 @@ var drjoint = (function(){
     }
   });
 
+  var loadFromFileDialog = $( "#load-from-file-dialog" ).dialog({
+    resizable: false,
+    autoOpen: false,
+    modal: true,
+    buttons: {
+      "Load": function() {
+        $( this ).dialog( "close" );
+      },
+      Cancel: function() {
+        $( this ).dialog( "close" );
+      }
+    }
+  });
+
+  $('#load-button').on('click', function(){
+    loadFromFileDialog.dialog('open');
+  });
+
   var createDBSchema = function(data){
 
     var dbSchema = $('<div></div>');
