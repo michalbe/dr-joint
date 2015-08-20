@@ -17,6 +17,19 @@ var drjoint = (function(){
     }
   };
 
+  var load = function(){
+    var content = window.localStorage.getItem('drjoint');
+    if (!content) {
+      return;
+    }
+
+    content = JSON.parse(content);
+    for (var i in content) {
+      console.log(i, content[i]);
+    }
+  };
+
+  load();
   var loadDialog = $( "#dialog-confirm" ).dialog({
     resizable: false,
     autoOpen: false,
