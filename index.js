@@ -159,6 +159,10 @@ var drjoint = (function(){
       //element.remove();
   });
 
+  $('#load-button').on('click', function(){
+    loadDialog.dialog('open');
+  });
+
   if (isContentForLoading()) {
     loadDialog.dialog("open");
   }
