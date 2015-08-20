@@ -17,7 +17,7 @@ var drjoint = (function(){
     }
   };
 
-  $( "#dialog-confirm" ).dialog({
+  var loadDialog = $( "#dialog-confirm" ).dialog({
     resizable: false,
     autoOpen: false,
     modal: true,
@@ -158,4 +158,9 @@ var drjoint = (function(){
       element[0].click();
       //element.remove();
   });
+
+  if (isContentForLoading()) {
+    loadDialog.dialog("open");
+  }
+
 })();
